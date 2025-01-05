@@ -3,77 +3,74 @@ import numpy as np
 from google.colab import files
 files.upload()
 
-
 df = pd.read_excel('Lista estudiantes (1) (1).xlsx')
 
 print(df.columns)
 
-Escuelas=set(df["Sede"])
+Escuelas = set(df["Sede"])
 lista = list(Escuelas)
 vector = np.array(lista)
 
 print(vector)
 
+cols_df = df.loc[df["En mi condición de padre, madre, tutor(a), apoderado legal autorizo que el menor participe del estudio de satisfacción 2023, que lleva a cabo el SINEM junto con la colaboración de la Escuela de Estadística de la Universidad de Costa Rica. "] == 'Sí', ["Sede", "Estudiante"]
 
-cols_df = df.loc[df["En mi condición de padre, madre, tutor(a), apoderado legal autorizo que el menor participe del estudio de satisfacción 2023, que lleva a cabo el SINEM junto con la colaboración de la Escuela de Estadística de la Universidad de Costa Rica.  "] == 'Sí', ["Sede", "Estudiante"]]
+# Create the filtered table with parents who gave permission and the necessary columns
 
--- Creamos la tabla filtrada con los padres que si dieron el perimiso, y las columas nececarias
+# Now we generate the loop that
 
--- Ahora generamos el cliclo que
+# Selects each school
 
-Seleccione cada escuela
+# Sorts by age
 
-Ordene por edad
-
-Guarde en un archivo pdf que tenga el nombre de la escuela y muestre primero los niños de 5 a 11 y luego los de 12 a 17
+# Saves in a PDF file named after the school, showing first the children aged 5 to 11 and then those aged 12 to 17
 
 from fpdf import FPDF
 
-
-# Importamos FPDF
+# Import FPDF
 from fpdf import FPDF
 
-# Creamos una lista con los nombres de las escuelas
+# Create a list with the names of the schools
 escuelas = ['Frailes', 'Grecia', 'Pavas', 'Puntarenas', 'Acosta', 'Coto Brus',
  'Aguas Zarcas', 'Parque la libertad', 'Nicoya', 'Siquirres', 'Pococí',
  'Mata de Plátano', 'nan', 'Limón', 'San Ramon', 'Guácimo', 'Quepos',
  'León XIII', 'Oreamuno', 'Alajuela', 'Liberia']
 
-# Recorremos la lista de escuelas
+# Iterate through the list of schools
 for escuela in escuelas:
 
-  # Creamos un objeto PDF
+  # Create a PDF object
   pdf = FPDF('P', 'mm', 'Letter')
 
-  # Filtramos el dataframe por la escuela actual
+  # Filter the dataframe by the current school
   df_ordenado = cols_df.loc[cols_df["Sede"] == escuela]
 
-  # Ordenamos el dataframe por el nombre del estudiante
+  # Sort the dataframe by student name
   df_ordenado = df_ordenado.sort_values(by="Estudiante")
 
-  # Extraemos la columna Estudiante como una lista
+  # Extract the Student column as a list
   lista_estudiantes = df_ordenado["Estudiante"].tolist()
 
-  # Añadimos una página al PDF
+  # Add a page to the PDF
   pdf.add_page()
 
-  # Establecemos la fuente y el tamaño
+  # Set the font and size
   pdf.set_font('helvetica', '', 16)
 
-  # Escribimos el nombre de la escuela
+  # Write the name of the school
   pdf.cell(40, 10, escuela)
 
-  # Dejamos un espacio en blanco
+  # Leave a blank space
   pdf.ln()
 
-  # Recorremos la lista de estudiantes
+  # Iterate through the list of students
   for estudiante in lista_estudiantes:
 
-    # Escribimos el nombre del estudiante en una celda
+    # Write the student's name in a cell
     pdf.cell(40, 10, estudiante)
 
-    # Dejamos un espacio en blanco
+    # Leave a blank space
     pdf.ln()
 
-  # Guardamos el PDF con el nombre de la escuela
+  # Save the PDF with the name of the school
   pdf.output(escuela + '.pdf')
