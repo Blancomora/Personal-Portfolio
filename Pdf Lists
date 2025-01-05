@@ -1,0 +1,79 @@
+import pandas as pd
+import numpy as np
+from google.colab import files
+files.upload()
+
+
+df = pd.read_excel('Lista estudiantes (1) (1).xlsx')
+
+print(df.columns)
+
+Escuelas=set(df["Sede"])
+lista = list(Escuelas)
+vector = np.array(lista)
+
+print(vector)
+
+
+cols_df = df.loc[df["En mi condición de padre, madre, tutor(a), apoderado legal autorizo que el menor participe del estudio de satisfacción 2023, que lleva a cabo el SINEM junto con la colaboración de la Escuela de Estadística de la Universidad de Costa Rica.  "] == 'Sí', ["Sede", "Estudiante"]]
+
+-- Creamos la tabla filtrada con los padres que si dieron el perimiso, y las columas nececarias
+
+-- Ahora generamos el cliclo que
+
+Seleccione cada escuela
+
+Ordene por edad
+
+Guarde en un archivo pdf que tenga el nombre de la escuela y muestre primero los niños de 5 a 11 y luego los de 12 a 17
+
+from fpdf import FPDF
+
+
+# Importamos FPDF
+from fpdf import FPDF
+
+# Creamos una lista con los nombres de las escuelas
+escuelas = ['Frailes', 'Grecia', 'Pavas', 'Puntarenas', 'Acosta', 'Coto Brus',
+ 'Aguas Zarcas', 'Parque la libertad', 'Nicoya', 'Siquirres', 'Pococí',
+ 'Mata de Plátano', 'nan', 'Limón', 'San Ramon', 'Guácimo', 'Quepos',
+ 'León XIII', 'Oreamuno', 'Alajuela', 'Liberia']
+
+# Recorremos la lista de escuelas
+for escuela in escuelas:
+
+  # Creamos un objeto PDF
+  pdf = FPDF('P', 'mm', 'Letter')
+
+  # Filtramos el dataframe por la escuela actual
+  df_ordenado = cols_df.loc[cols_df["Sede"] == escuela]
+
+  # Ordenamos el dataframe por el nombre del estudiante
+  df_ordenado = df_ordenado.sort_values(by="Estudiante")
+
+  # Extraemos la columna Estudiante como una lista
+  lista_estudiantes = df_ordenado["Estudiante"].tolist()
+
+  # Añadimos una página al PDF
+  pdf.add_page()
+
+  # Establecemos la fuente y el tamaño
+  pdf.set_font('helvetica', '', 16)
+
+  # Escribimos el nombre de la escuela
+  pdf.cell(40, 10, escuela)
+
+  # Dejamos un espacio en blanco
+  pdf.ln()
+
+  # Recorremos la lista de estudiantes
+  for estudiante in lista_estudiantes:
+
+    # Escribimos el nombre del estudiante en una celda
+    pdf.cell(40, 10, estudiante)
+
+    # Dejamos un espacio en blanco
+    pdf.ln()
+
+  # Guardamos el PDF con el nombre de la escuela
+  pdf.output(escuela + '.pdf')
