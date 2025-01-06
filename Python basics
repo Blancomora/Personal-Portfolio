@@ -1,0 +1,288 @@
+Variables in Python
+/Shift enter to run/
+-----
+X = 22 
+Print(X) 
+----
+Response 22 
+---- 
+Type(x)
+Y = ‘Mint’
+Type(Y)
+----
+Int
+Str
+## Variable are case sensitive
+
+X,y,z = ‘choclate’, ‘vainilla’, ‘rocky road’
+
+Print(X)
+Print(Y)
+Print(Z)
+
+--
+choclate
+vainilla
+rocky road
+---
+ 
+
+Ice_Cream = [‘Chocolate’, ‘Vainilla’, ‘Rocky Road’]
+X,y,z = Ice_Cream 
+Print(x)
+Print(Y)
+Print(Z) 
+--
+
+choclate
+vainilla
+rocky road
+--- 
+X = y = z = ‘root’
+-- 
+#Camel Case
+testVariableCase
+#Pascal Case
+TestVariableCase
+#Snake Case, Best case that improves readability 
+test_variable_case
+# cannont use – , spaces or comas period or any symbol, or a number at front. 
+--
+To concatenate strings you can use + signe 
+
+X= ‘ice cream’ + ‘  ’ + ‘is my favorite’
+Data Types  
+
+Numeric, Sequence type, set, Boolean and dictionaries 
+
+
+--
+Numeric has integers, float and complex
+Intergers are full numbrs positive of negative 
+float typa is a decimal number 
+complex are denominated with a j, type(2j) = complex
+Boolean gives true false statements 
+--
+Strings can come in single double or triple Quotes (multiline)
+“””
+ 
+ 
+
+
+
+Type(Muiltiline)=str
+
+strings are indexed starting in cero 
+a=’hello’
+print(a[:5])
+--
+hello
+--
+print(a[2:5])
+--
+llo
+--
+print(a[4])
+--
+o
+
+
+
+# List can contain different data types
+[1, 2, 3]
+[‘cookie’, ‘stawberry’, ‘chocolate’]
+[‘cookie’, 4, ‘chocolate’, true]
+
+ 
+You can nest a list and call the position list nested
+
+ 
+
+--
+# tuple 
+Tuple_Scoops = (1, 2, 3)
+Type(Tuple_Scoops)
+Does not have the append capability, can contain duplicates and mantin their order
+--
+# Sets 
+Daily_pints= {1, 2, 3} 
+Type(Daily_pints)
+ set
+ 
+Only prints unique, this helps for finding combined unique  values 
+ 
+
+# dictionaries 
+#Key/Value Pair 
+Dict_cream = {‘name’ : ‘Alex’ , ‘Weekly intake’ : 5, ‘Fav ice creams are’ : [‘MCC’ , ‘Chocolate’] }
+ 
+
+Dictionaries don’t have an index, the index is the key 
+ 
+
+
+
+
+
+
+
+
+
+Functions in Python
+
+def number_sqaerd(number):
+	print(number**2)
+
+Number_Squaerd(5)
+--
+25
+--
+Def number_squaerd_cust(number,power):
+	Print(number**power)
+number_squaerd_cust(34,2)
+Arbiraty arguments, no specific number of arguments 
+Def num_args(*number):
+	Print(number[0]*number[1])
+Num_args(5,6,7,84,9) ## tuple 
+Args_tuple=(5,6,7,84,9)
+Num_args(*Args_tuple)
+
+
+BMI Calculator 
+---
+Weight = int(input (“Enter you weight in pounds: ”))
+
+Height = int(input (“Enter you height in inches: ”))
+BMI = (Weight*703) / (Height**2)
+If BMI>0:
+	If (BMI < 18.5) :
+		Print(“You are underweight.”)
+	else If (18.5 <= BMI <= 24.9) :
+Print(“You are normal weight.”)
+else If ( BMI <= 29.9) :
+Print(“You are over weight.”)
+else If (BMI <= 34.9) :
+Print(“You are obese.”)
+else If (BMI <= 39.9) :
+		Print(“You are severly.”)
+	Else: print(“you are severely obese”)
+Else: 
+	Print(“Enter valid input”)
+
+--
+
+BeautifulSoup and Requests 
+--
+Reading In Files 
+Import pandas as pd
+Open file exploerer 
+Pd.read.csv(r”copy as path”)
+Df = Pd.read.csv(r”copy as path”, header = None, names = [‘Country’ , ‘Region’])
+ Df 
+df = pd.read_table(r””, sep = ‘,’)
+
+Filter using Rank 
+
+df [ df [‘Rank’] > 10 ]
+can also filter is in as in sql 
+specific_countries = [ ‘Bangradesh’, ‘Brazil’]
+
+df[ df[ ‘Country’].isin(specific_countries)] 
+Value within a column 
+df[ df[ ‘Country’].str.contains(‘United’)] 
+2 ways to filter in the index 
+First set the index to a column, in this case we will use country 
+ df2 = df.set_index( ‘Country’ ) 
+ df2.filter(Items = [ ‘Contient’ , ‘CCA3’ ] , axis = 1 ) # axis 1 filters the columns 
+# axis 0 filters the rows 
+ 
+
+Also works Like 
+ 
+
+To se an specific row values 
+ df2.loc[‘United States’]
+or u can use the integer position 
+df2.iloc[‘3’]
+Next tipoc order by to sort and order values 
+     df[ df[‘Rank’] < 10 ]. Sort_values( by= ‘Rack’)
+df[ df[‘Rank’] < 10 ]. Sort_values( by= ‘Rack’, ascending=False)
+order of importance in the list 
+df[ df[‘Rank’] < 10 ]. Sort_values( by= [‘Rack’, ‘Country’] )
+df[ df[‘Rank’] < 10 ]. Sort_values( by= [‘Continet’, ‘Country’], asending = [False, True] )
+
+Indexing in pandas
+It is a value of label for each row 
+ df = pd.read_csv(r””, index_col = “Country”)
+ df.reset_Index(Inplace=True)
+ df.set_index(‘Country’, inplace=True)
+inplace makes that the df wets updated without saving in a new object 
+loc and iloc 
+df.loc[‘Albania’] 
+this brings the Albania data 
+the data frame can also have 2 index 
+df.set_index([‘Continet’, ‘Country’], inplace=True)
+Next topic is Group by and agregarting 
+Lets use the column named base flavor 
+Group_by_frame = Df.groupby(‘Base Flavor’)
+Group_by_frame.mean 
+This will calculate the average of all numeric columns 
+To have that in a single colum you can write 
+ df.groupby(‘Base Flavor’).count()
+df.groupby(‘Base Flavor’).max()
+df.groupby(‘Base Flavor’).agg( {‘Flavor Rating’ : [‘mean’, ‘max’, ‘count’, ‘sum’], ‘Texrue Rating ’ } )
+ 
+
+ 
+
+Inner join 
+  df1.merge(df2)  
+
+Inner join 
+  df1.merge(df2, how = ‘inner‘)
+
+ 
+
+Shift tab to see the rest of the arguments of a function 
+
+Concate a dataframe puts a dataframe on top of the other 
+pd.concat([df1],[df2])
+adds nulls 
+pd.concat([df1],[df2], join = ‘inner’)
+only the columns they share 
+also the append column works as concatante but its on its way out so its recommended to not use 
+
+Cleaning data using Pandas 
+to drop duplicates 
+df = df.drop_duplicates()
+remove columns 
+df.drop(columns = ”Not_useful_colum” )
+for symbols on the begening and end of the text of last name columns 
+df[ ‘Last_name’ ].str.strip()
+for left strip
+df[ ‘Last_name’ ].str.lstrip(“…”)
+values taken out have to be taken put obe by one, 	
+so to modity only the column from the full dataset use the following syntax 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	 
+
+
